@@ -1,0 +1,48 @@
+# =================================================================
+# .gitignore for Banking Management System
+# =================================================================
+
+# Local DB credentials — NEVER commit
+app/config.py
+
+# Python bytecode / cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Kaggle dataset (download separately, license restrictions)
+data/raw/Churn_Modelling.csv
+data/raw/archive.zip
+
+# Build artifacts
+report/node_modules/
+report/image_dims.json
+*.tmp
+*.bak
+
+# Logs
+*.log
+mysql_*.log
+
+# CSV exports from the app
+*.csv
+!data/raw/.gitkeep
