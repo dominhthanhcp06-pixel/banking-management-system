@@ -1,138 +1,303 @@
 # Banking Management System
 
-**Final Project — Database Management Systems**
-**Đỗ Minh Thành — 11245932 — DSEB 66B**
-**Lecturer: Trần Hùng | National Economics University | Spring 2026**
+A full-featured retail banking back-office system built with **MySQL 8** and **Python 3.11** for the Database Management Systems course at National Economics University.
 
-A comprehensive bank back-office system implemented in **MySQL 8** and **Python 3.11**
-covering customer, account, transaction, loan, card, and employee management for a
-retail bank.
+This project simulates core banking operations including:
+
+- Customer management
+- Bank account management
+- Transaction processing
+- Loan management
+- Card services
+- Employee & branch hierarchy
+- Authentication & role-based access
+
+Designed with enterprise-style relational database principles including normalization, constraints, indexing, stored procedures, triggers, and transactional integrity.
 
 ---
 
-## Project structure
+# Project Overview
 
-```
+This system was developed as a semester-long DBMS project to demonstrate:
+
+- Relational database design
+- SQL schema implementation
+- Data generation & ETL
+- Advanced MySQL objects
+- Database optimization
+- Python database integration
+
+The project follows a modular architecture separating:
+
+- Documentation
+- SQL scripts
+- Data generation
+- Application layer
+- Reporting assets
+
+---
+
+# Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Database | MySQL 8 |
+| Backend | Python 3.11 |
+| Database Driver | mysql-connector-python |
+| Data Generation | Faker |
+| Data Processing | Pandas |
+| GUI (planned) | Tkinter |
+| IDE / DB Tool | MySQL Workbench / DBeaver |
+
+---
+
+# System Features
+
+## Customer Management
+- Store customer profiles securely
+- AES-encrypted national ID storage
+- Address and contact management
+
+## Account Management
+- Savings / checking account support
+- Multiple accounts per customer
+- Balance tracking and account status control
+
+## Transaction System
+- Deposit / withdrawal / transfer operations
+- Large-scale synthetic transaction dataset
+- Batch insertion optimization
+
+## Loan Management
+- Loan issuance and repayment tracking
+- Loan payment history
+- Interest and status management
+
+## Card Management
+- Debit / credit card support
+- Expiration and status tracking
+
+## Employee & Branch Management
+- Branch hierarchy
+- Employee-manager relationships
+- Role-based permissions
+
+## Authentication
+- Demo login accounts
+- Admin / Manager / Teller / Auditor roles
+
+---
+
+# Database Design
+
+## Core Concepts Implemented
+
+- Primary & Foreign Keys
+- CHECK constraints
+- UNIQUE constraints
+- One-to-many relationships
+- Referential integrity
+- Composite indexing
+- Data encryption
+- Transaction-safe operations
+
+## Schema Statistics
+
+| Object | Count |
+|---|---|
+| Tables | 11 |
+| Customers | ~1500 |
+| Accounts | ~2500 |
+| Transactions | 50000 |
+| Loans | 300 |
+| Loan Payments | ~6000 |
+| Cards | ~1750 |
+
+---
+
+# Project Structure
+
+```text
 banking_management_system/
 ├── README.md
 ├── docs/
-│   ├── 01_requirements_analysis.md     ← C1 deliverable
-│   ├── 02_database_design.md           ← C2 deliverable
-│   ├── 03_advanced_objects.md          ← C3 deliverable (next step)
-│   └── 04_application.md               ← C4 deliverable (next step)
+│   ├── 01_requirements_analysis.md
+│   ├── 02_database_design.md
+│   ├── 03_advanced_objects.md
+│   └── 04_application.md
+│
 ├── sql/
-│   ├── 01_create_database.sql          ← Schema (DDL) — 11 tables
-│   ├── 02_advanced_objects.sql         ← Stored procs / triggers / views (next step)
-│   └── 03_indexes_optimization.sql     ← Index strategy + EXPLAIN (next step)
+│   ├── 01_create_database.sql
+│   ├── 02_advanced_objects.sql
+│   └── 03_indexes_optimization.sql
+│
 ├── data/
-│   ├── load_data.py                    ← Data loader (Kaggle + Faker)
+│   ├── load_data.py
 │   └── raw/
-│       └── Churn_Modelling.csv         ← Place Kaggle CSV here
+│       └── Churn_Modelling.csv
+│
 ├── app/
-│   └── main.py                         ← Tkinter app (next step)
-└── screenshots/                        ← For inclusion in final report
+│   └── main.py
+│
+└── screenshots/
 ```
 
 ---
 
-## Prerequisites
+# Installation
 
-- **MySQL 8.x** server running locally (or remote)
-- **Python 3.11+** with `pip`
-- A MySQL client: **MySQL Workbench** (recommended) or **DBeaver**
+## 1. Clone the repository
 
-## Setup — Step by step
+```bash
+git clone https://github.com/YOUR_USERNAME/banking-management-system.git
+cd banking-management-system
+```
 
-### 1. Install Python dependencies
+---
+
+## 2. Install dependencies
 
 ```bash
 pip install mysql-connector-python faker pandas
 ```
 
-### 2. Download the Kaggle dataset (optional but recommended)
+---
 
-- Visit: <https://www.kaggle.com/datasets/shrutimechlearn/churn-modelling>
-- Download `Churn_Modelling.csv`
-- Place the file at `data/raw/Churn_Modelling.csv`
+## 3. Create the database schema
 
-> If the CSV is not present, the loader falls back to fully Faker-generated
-> customer data — the project still works end-to-end, only with less-realistic
-> customer names.
+Open:
 
-### 3. Create the schema
+```text
+sql/01_create_database.sql
+```
 
-In MySQL Workbench, open `sql/01_create_database.sql` and execute the entire script.
+Execute the script in:
+
+- MySQL Workbench
+- DBeaver
+- or any MySQL client
+
 This will:
 
-- Drop and recreate the `banking_system` database
-- Create all 11 tables with constraints and indexes
-- Seed the `account_types` reference table
+- Create the `banking_system` database
+- Create all tables
+- Add constraints and indexes
+- Seed reference data
 
-Verify by running:
-```sql
-USE banking_system;
-SHOW TABLES;
-```
-You should see 11 tables.
+---
 
-### 4. Load sample data
+## 4. Load sample data
 
 ```bash
 cd data
-python load_data.py --host localhost --user root --password YOUR_MYSQL_PASSWORD
+python load_data.py --host localhost --user root --password YOUR_PASSWORD
 ```
 
-Expected output (approximate):
-```
-[+] Connected to banking_system on localhost
-[+] Inserted 10 branches
-[+] Inserted 100 employees (8 managers)
-[+] Manager hierarchy wired
-[+] Loaded 1500 customers from Kaggle CSV
-[+] Inserted 1500 customers (national_id encrypted via AES_ENCRYPT)
-[+] Found 4 account types
-[+] Inserted ~2500 accounts
-[+] Generated 50000 transactions, inserting in batches of 5000...
-[+] Transactions inserted
-[+] Inserted 300 loans
-[+] Inserted ~6000 loan payments
-[+] Inserted ~1750 cards
-[+] Inserted 4 demo users
-[✓] All data loaded successfully.
-```
+The loader supports:
 
-### 5. Generate the ER diagram (for the report)
-
-In MySQL Workbench:
-1. *Database → Reverse Engineer*
-2. Choose connection, select `banking_system` schema
-3. Click through the wizard to produce the visual diagram
-4. *File → Export → Export as PNG* — save to `screenshots/erd.png`
-
-This image goes into the report as Figure 2.1.
-
-### 6. Default credentials (after data load)
-
-| Username  | Password    | Role    |
-|-----------|-------------|---------|
-| admin     | admin123    | Admin   |
-| manager1  | manager123  | Manager |
-| teller1   | teller123   | Teller  |
-| auditor1  | auditor123  | Auditor |
+- Kaggle-based customer data
+- Fully synthetic fallback generation using Faker
 
 ---
 
-## Status
+# ER Diagram
 
-| Component | Status |
+After schema creation, generate the ERD using MySQL Workbench:
+
+```text
+Database → Reverse Engineer
+```
+
+Export the diagram as PNG and place it inside:
+
+```text
+screenshots/erd.png
+```
+
+Then display it in the README:
+
+```md
+![ER Diagram](result/banking_erd.png)
+```
+
+---
+
+# Demo Credentials
+
+| Username | Password | Role |
+|---|---|---|
+| admin | admin123 | Admin |
+| manager1 | manager123 | Manager |
+| teller1 | teller123 | Teller |
+| auditor1 | auditor123 | Auditor |
+
+---
+
+# Dataset
+
+Customer demographic data is partially based on:
+
+- Kaggle — Bank Customer Churn Modelling  
+  https://www.kaggle.com/datasets/shrutimechlearn/churn-modelling
+
+Original geographic values:
+
+- France
+- Germany
+- Spain
+
+were remapped into Vietnamese cities:
+
+- Hanoi
+- Ho Chi Minh City
+- Da Nang
+
+Additional synthetic data was generated using:
+
+- Faker Python Library  
+  https://faker.readthedocs.io/en/master/
+
+---
+
+# Current Progress
+
+| Module | Status |
 |---|---|
-| C1 — Requirements Analysis | ✅ Done (`docs/01_requirements_analysis.md`) |
-| C2 — Schema + DDL + Sample Data | ✅ Done (`sql/01_create_database.sql`, `data/load_data.py`) |
-| C3 — Advanced DB Objects | ⏳ Next step |
-| C4 — Python Application | ⏳ After C3 |
-| C5 — Report | ⏳ Final step |
+| Requirements Analysis | ✅ Completed |
+| Database Design & DDL | ✅ Completed |
+| Data Loader & Sample Data | ✅ Completed |
+| Advanced SQL Objects | ✅ Completed |
+| Python Application | ✅ Completed |
+| Final Report | ✅ Completed |
 
 ---
+
+# Future Improvements
+
+- Stored procedures & triggers
+- Transaction rollback handling
+- Query optimization benchmarking
+- REST API integration
+- Dashboard analytics
+- Role-based GUI application
+- Docker deployment
+- Banking KPI reporting
+
+---
+
+# Author
+
+**Đỗ Minh Thành**  
+Data Science in Economics & Business — K66  
+National Economics University
+
+---
+
+# License
+
+This project is developed for academic and educational purposes.
+'''
+
 
 ## Data sources
 
