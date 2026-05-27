@@ -294,16 +294,5 @@ National Economics University
 ---
 
 # License
-
 This project is developed for academic and educational purposes.
 '''
-
-
-## Data sources
-
-- **Kaggle — Bank Customer Churn Modelling** (Shrutimechlearn).
-  <https://www.kaggle.com/datasets/shrutimechlearn/churn-modelling>
-  Used for customer demographics (10 000 records sampled to 1 500).
-  Geography remapped from `France/Spain/Germany` to `Hanoi/HCMC/Da Nang`.
-- **Faker** library — synthetic data for branches, employees, accounts,
-  transactions, loans, cards.
