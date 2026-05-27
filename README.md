@@ -216,10 +216,8 @@ screenshots/erd.png
 
 Then display it in the README:
 
-```md
-![ER Diagram](result/banking_erd.png)
-```
 
+![ER Diagram](result/banking_erd.png)
 ---
 
 # Demo Credentials
