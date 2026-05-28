@@ -259,3 +259,6 @@ INSERT INTO account_types (type_name, interest_rate, min_balance, description) V
 -- ============================================================================
 -- End of schema
 -- ============================================================================
+USE banking_system;
+SHOW TABLES;
+SELECT * FROM account_types;
