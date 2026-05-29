@@ -218,6 +218,8 @@ Then display it in the README:
 
 
 ![ER Diagram](result/banking_erd.png)
+
+
 ---
 
 # Demo Credentials
